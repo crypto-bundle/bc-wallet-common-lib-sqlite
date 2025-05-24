@@ -88,7 +88,7 @@ func (c *Connection) Connect() (*Connection, error) {
 }
 
 func (c *Connection) tryConnect() (*sqlx.DB, error) {
-	dbx, err := sqlx.Connect("sqlite3", c.c.GetSQLiteDBFilePath())
+	dbx, err := sqlx.Connect("sqlite3", c.c.GetDatabaseDSN())
 	if err != nil {
 		c.l.Error("unable to connect sqlite database", slog.Any("error", err))
 	}
