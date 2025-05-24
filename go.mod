@@ -1,4 +1,4 @@
-module bc-wallet-common-lib-sqlite
+module github.com/crypto-bundle/bc-wallet-common-lib-sqlite
 
 go 1.23.0
 
