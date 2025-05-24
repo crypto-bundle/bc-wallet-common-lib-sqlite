@@ -8,7 +8,7 @@ import (
 var _ configSQLiteParametersService = (*SQLiteConfig)(nil)
 
 type SQLiteConfig struct {
-	DBFilePath string `envconfig:"SQLITE_DATABASE_FILE_PATH" default:"/var/lib/ca-api-gateway/db.sqlite"`
+	DBFilePath string `envconfig:"SQLITE_DATABASE_FILE_PATH" default:"/var/lib/application/db.sqlite"`
 	DBName     string `envconfig:"SQLITE_DATABASE_DATABASE_NAME" default:"ca-api-gateway"`
 	DBUsername string `envconfig:"SQLITE_DATABASE_USERNAME"`
 	DBPassword string `envconfig:"SQLITE_DATABASE_PASSWORD"`
