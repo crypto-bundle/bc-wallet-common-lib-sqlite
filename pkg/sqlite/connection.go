@@ -134,6 +134,11 @@ func NewConnectionWithDefaults(dbConn *sqlx.DB,
 	logFactorySvc loggerBuilderService,
 	errFmtSvc errorFormatterService,
 ) *Connection {
+	var logBuilderSvc = logFactorySvc
+	if logBuilderSvc == nil {
+		logBuilderSvc = NewDefaultSQLiteLoggerBuilder()
+	}
+
 	return &Connection{
 		l:   logFactorySvc.NewSlogNamedLoggerEntry("lib-postgres"),
 		e:   errFmtSvc,
