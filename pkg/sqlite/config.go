@@ -28,7 +28,7 @@ func (c *SQLiteConfig) Prepare() error {
 }
 
 func (c *SQLiteConfig) GetDatabaseDSN() string {
-	return fmt.Sprintf("file:%s?_query_only=on&_mutex=full", c.DBFilePath)
+	return fmt.Sprintf("file:%s?_mutex=no&mode=rwc&_txlock=immediate", c.DBFilePath)
 }
 
 func (c *SQLiteConfig) GetSQLiteDBFilePath() string {
