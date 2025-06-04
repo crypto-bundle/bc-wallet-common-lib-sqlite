@@ -2,6 +2,7 @@ package sqlite
 
 import (
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -15,15 +16,24 @@ type SQLiteConfig struct {
 	// DBConnectTimeOut is the timeout in millisecond to connect between connection tries
 	DBConnectTimeOut time.Duration `envconfig:"SQLITE_CONNECTION_RETRY_TIMEOUT" default:"5s"`
 	// DBConnectRetryCount is the maximum number of reconnection tries. If 0 - infinite loop
-	DBConnectRetryCount uint8 `envconfig:"SQLITE_CONNECTION_RETRY_COUNT" default:"0"`
+	DBConnectRetryCount uint8  `envconfig:"SQLITE_CONNECTION_RETRY_COUNT" default:"0"`
+	DBPragmaDirectives  string `envconfig:"SQLITE_PRAGMA_DIRECTIVES" default:"_mutex=no,mode=rwc,_txlock=immediate"`
+	// compiled variables
+	pragmaDirectivesList []string
 }
 
 func (c *SQLiteConfig) Prepare() error {
+	c.pragmaDirectivesList = strings.Split(c.DBPragmaDirectives, ",")
+
+	return nil
+}
+
+func (c *SQLiteConfig) PrepareWith(_ ...interface{}) error {
 	return nil
 }
 
 func (c *SQLiteConfig) GetDatabaseDSN() string {
-	return fmt.Sprintf("file:%s?_mutex=no&mode=rwc&_txlock=immediate", c.DBFilePath)
+	return fmt.Sprintf("file:%s?%s", c.DBFilePath, strings.Join(c.pragmaDirectivesList, "&"))
 }
 
 func (c *SQLiteConfig) GetSQLiteDBFilePath() string {
