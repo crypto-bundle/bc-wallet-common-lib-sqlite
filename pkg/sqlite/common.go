@@ -29,7 +29,7 @@ type configSQLiteParametersService interface {
 	GetDBName() string
 	GetDBUser() string
 	GetDBPassword() string
-	GetDBConnectTimeOut() uint16
+	GetDBConnectTimeOut() time.Duration
 	GetSQLiteDBFilePath() string
 	GetConnectionRetryCount() uint8
 	GetConnectionRetryTimeout() time.Duration
