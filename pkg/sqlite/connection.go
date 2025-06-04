@@ -33,7 +33,7 @@ func (c *Connection) IsHealed(ctx context.Context) bool {
 func (c *Connection) checkConnectionByQuery(dbx *sqlx.DB) error {
 	rows, err := dbx.Query("SELECT 1")
 	if err != nil {
-		return c.e.ErrorOnly(err)
+		return c.e.Error(err)
 	}
 
 	defer func() {
@@ -42,7 +42,7 @@ func (c *Connection) checkConnectionByQuery(dbx *sqlx.DB) error {
 
 	err = rows.Err()
 	if err != nil {
-		return c.e.ErrorOnly(err)
+		return c.e.Error(err)
 	}
 
 	return nil
@@ -81,7 +81,7 @@ func (c *Connection) Connect() (*Connection, error) {
 	}
 
 	if err != nil {
-		return nil, c.e.ErrorOnly(err)
+		return nil, c.e.Error(err)
 	}
 
 	return c, nil
@@ -90,7 +90,7 @@ func (c *Connection) Connect() (*Connection, error) {
 func (c *Connection) tryConnect() (*sqlx.DB, error) {
 	dbx, err := sqlx.Connect("sqlite3", c.c.GetDatabaseDSN())
 	if err != nil {
-		c.l.Error("unable to connect sqlite database", slog.Any("error", err))
+		return nil, c.e.Error(err)
 	}
 
 	err = dbx.Ping()
@@ -109,7 +109,7 @@ func (c *Connection) tryConnect() (*sqlx.DB, error) {
 func (c *Connection) Close() error {
 	err := c.Dbx.Close()
 	if err != nil {
-		return c.e.ErrorOnly(err)
+		return c.e.Error(err)
 	}
 
 	return nil
