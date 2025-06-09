@@ -19,7 +19,7 @@ package main
 
 import (
 	commonEnvConfig "github.com/crypto-bundle/bc-wallet-common-lib-configs/pkg/envconfig"
-  commonPostgres "github.com/crypto-bundle/bc-wallet-common-lib-postgres/pkg/sqlite"
+  commonsSQLite "github.com/crypto-bundle/bc-wallet-common-lib-postgres/pkg/sqlite"
 )
 
 func main() {
