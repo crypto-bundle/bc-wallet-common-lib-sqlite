@@ -1,6 +1,6 @@
 # Change Log
 
-## [v0.0.1] - 24.05.2025
+## [v0.0.1] - 09.06.2025
 ### Added
 * Repository initial - cloned and modified from [lib-postgres](https://github.com/crypto-bundle/bc-wallet-common-lib-postgres)
   * Added SQLite connection wrapper
